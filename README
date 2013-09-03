@@ -90,14 +90,17 @@ To aid this practice,
 
 build_cache.py:
 This program just builds the cache and does nothing else, you can afterwards
-invoke all of the above programs with --offline.
+invoke all of the above programs with --offline. It's a good idea to run these
+programs with just 1 thread when they are in the offline mode, as multiple
+threads in Python slow things down when there are no major blocking system calls
+like downloading involved.
 
 So for instance if you want to dump all the hashes on /g/, also dump the words
 and a couple of ngrams you can do this.
 $ ./build_cache /g/
-$ ./dump_hashes --offline tripcodes.txt /g/
-$ ./dump_words --offline words.txt /g/
-$ ./dump_ngrams --offline bigrams.txt 2 /g/
+$ ./dump_hashes --offline --threads=1 tripcodes.txt /g/
+$ ./dump_words --offline --threads=1 words.txt /g/
+$ ./dump_ngrams --offline --threads=1 bigrams.txt 2 /g/
 ...
 
 Note that all of the above programs also build the cache, so if you just write
@@ -147,6 +150,10 @@ the database.
 You're probably better off creating wordlists and using them with John the
 Ripper, you might also want to try it with large public leaks like the rockyou
 list.
+
+Last but not least I have to mention that you can of course use tdt from the
+Python shell itself as a module. The programs themselves serve as examples how
+to do this.
 
 FAQ:
 Q:

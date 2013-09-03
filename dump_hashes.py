@@ -2,12 +2,12 @@
 
 import logging
 
-from tpt.core      import classify
-from tpt.core      import Post
-from tpt.core      import WebEntity
-from tpt.threading import Pool
-from tpt.web       import boards
-from tpt.web       import Links
+from tdt.core      import classify
+from tdt.core      import Post
+from tdt.core      import WebEntity
+from tdt.threading import Pool
+from tdt.web       import boards
+from tdt.web       import Links
 
 cache_file = 'bin/cache.bin'
 

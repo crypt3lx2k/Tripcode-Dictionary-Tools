@@ -2,13 +2,13 @@
 
 import logging
 
-from tpt.collections import SortedSet
-from tpt.core        import classify
-from tpt.core        import Post
-from tpt.core        import WebEntity
-from tpt.solving     import SQLSolver
-from tpt.threading   import Pool
-from tpt.web         import Links
+from tdt.collections import SortedSet
+from tdt.core        import classify
+from tdt.core        import Post
+from tdt.core        import WebEntity
+from tdt.solving     import SQLSolver
+from tdt.threading   import Pool
+from tdt.web         import Links
 
 cache_file = 'bin/cache.bin'
 
