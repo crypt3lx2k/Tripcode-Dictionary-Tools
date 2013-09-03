@@ -1,0 +1,12 @@
+#! /bin/sh
+# This program attempts to read a john.pot file (that only contains tripcodes)
+# to make a SQL database out of it for use with the dtc.solving.SQLSolver.
+
+if test $# -lt 2; then
+    echo "usage: $0 [-q] [-c size] john_pot_file [john_pot_files ...] database_file" >&2
+    exit 1
+fi
+
+PATH=`dirname $0`:$PATH
+
+exec makesql --regex='\tripcode:\solution' $@

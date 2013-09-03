@@ -1,0 +1,145 @@
+#! /usr/bin/env python
+"""
+This program reads a raw file and transforms it into an SQL
+database fit for use with dtc.solving.SQLSolver.
+
+The program optionally takes a format string in the form of
+a regex that is used with the Python 're' module.
+
+The default regex matches lines in files with the format
+<solution> <tripcode>
+one per line.
+"""
+
+import argparse
+import os
+import re
+import sqlite3
+import sys
+
+parser = argparse.ArgumentParser (
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+
+    description='Transforms tripcode/solution files into SQL databases.',
+
+    epilog='''The format string may contain any valid regex construct that is compatible with
+the Python 're' module. The format string may also contain two special
+constructs namely '\\solution' and '\\tripcode'.
+
+The \\solution construct hungrily matches anything and is equivalent to '.+'.
+The \\tripcode construct only matches valid tripcodes.
+
+A third construct '\\secure' may also be used, but only if the \\tripcode
+construct is not used. The \\secure construct matches valid secure tripcodes.
+
+If you do not use the \\solution or \\tripcode constructs you must define the
+named groups 'solution' and 'tripcode', for example,
+'(?P<solution>\\d+) \\tripcode'
+will only match lines with solutions that are numbers.
+
+If no format string is given the default '\\solution \\tripcode' is used.'''
+)
+
+parser.add_argument (
+    'infile', nargs='+',
+    help='raw files with tripcode solution pairs'
+)
+
+parser.add_argument (
+    'outfile',
+    help='the resulting SQL database'
+)
+
+parser.add_argument (
+    '-q', '--quiet',
+    action='store_true',
+    help='do not print messages to stdout'
+)
+
+parser.add_argument (
+    '-r', '--regex',
+    metavar='format', default=r'\solution \tripcode',
+    help='optional regex that specifies an alternate line format'
+)
+
+parser.add_argument (
+    '-c', '--cache-size',
+    metavar='size', type=int, default=2000,
+    help='number of disk pages to use as memory cache for SQLite'
+)
+
+args = parser.parse_args()
+
+def quietly_state (message):
+    """
+    Prints message to stdout if args.quiet is False.
+    """
+    if not args.quiet:
+        print >> sys.stdout, message
+
+fmt = args.regex
+fmt = fmt.replace(r'\solution', '(?P<solution>.+)')
+fmt = fmt.replace(r'\tripcode', '(?P<tripcode>[a-zA-Z0-9\.\/]{10})')
+fmt = fmt.replace(r'\secure',   '(?P<tripcode>[a-zA-Z0-9\+\/]{11})')
+
+quietly_state('compiling regex for \'{}\''.format(args.regex))
+
+try:
+    line_matcher = re.compile(fmt)
+except re.error as e:
+    print >> sys.stderr, '\n'.join ((
+            'unable to compile format string: \'{}\''.format(args.regex),
+            '{}'.format(e)
+    ))
+    exit(1)
+
+quietly_state('opening database connection to {}'.format(args.outfile))
+
+db_connection = sqlite3.connect(args.outfile)
+db_connection.text_factory = str
+db_cursor = db_connection.cursor()
+
+db_cursor.execute (
+    '\n'.join ((
+            'CREATE TABLE IF NOT EXISTS solutions (',
+            '    tripcode TEXT PRIMARY KEY,',
+            '    solution TEXT',
+            ')'
+    ))
+)
+db_connection.commit()
+
+db_cursor.execute('PRAGMA cache_size={}'.format(args.cache_size))
+db_cursor.execute('PRAGMA synchronous=OFF')
+db_cursor.execute('BEGIN')
+
+for filename in args.infile:
+    try:
+        infile = open(filename, 'r')
+    except IOError as e:
+        print >> sys.stderr, e
+        continue
+
+    quietly_state('processing file {}'.format(filename))
+
+    for line in infile:
+        match = line_matcher.match(line)
+
+        if match is None:
+            print >> sys.stderr, 'unable to parse line: {}'.format (
+                line.rstrip('\n')
+            )
+            continue
+
+        info = match.groupdict()
+
+        db_cursor.execute (
+            'REPLACE INTO solutions VALUES (?,?)',
+            (info['tripcode'], info['solution'])
+        )
+
+quietly_state('committing transaction')
+
+db_connection.commit()
+db_cursor.close()
+db_connection.close()
