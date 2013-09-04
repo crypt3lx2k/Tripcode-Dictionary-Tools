@@ -76,6 +76,7 @@ class WebCache (object):
             try:
                 return self.downloader(url, timeout=timeout)
             except Exception as e:
+                logger.debug('got exception %s on %s', url, e)
                 retrier.register_error(e)
 
             retry = retrier.seconds()
@@ -116,6 +117,10 @@ class WebCache (object):
             connection.close()
         except urllib2.HTTPError as e:
             if e.code == 304:
+                logger.debug (
+                    'cache hit %r not modified since %s',
+                    key, lastmodified
+                )
                 return zlib.decompress(contents)
             raise
 

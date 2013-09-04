@@ -35,7 +35,7 @@ def find_hashes (*links):
                 return unit.public.cipher
             return
 
-        logger.info('Working %r', unit)
+        logger.info('working %r', unit)
         for e in unit.process():
             pool.push(work, e)
 

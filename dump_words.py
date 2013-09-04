@@ -45,7 +45,7 @@ def find_words (*links):
             return contents
 
     def work (unit):
-        logger.info('Working %r', unit)
+        logger.info('working %r', unit)
 
         if isinstance(unit, Thread):
             thread = unit.download_and_decode()

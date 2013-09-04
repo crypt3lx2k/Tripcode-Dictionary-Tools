@@ -43,7 +43,7 @@ def crack (*links):
         if isinstance(unit, Post):
             return unit
 
-        logger.info('Working %r', unit)
+        logger.info('working %r', unit)
         for e in unit.process():
             pool.push(work, e)
 

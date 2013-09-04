@@ -50,7 +50,7 @@ def find_ngrams (n, *links):
         return zip(*[tokens[i:] for i in range(n)])
 
     def work (unit):
-        logger.info('Working %r', unit)
+        logger.info('working %r', unit)
 
         if isinstance(unit, Thread):
             thread = unit.download_and_decode()

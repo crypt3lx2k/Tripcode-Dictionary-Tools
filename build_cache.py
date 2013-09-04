@@ -30,7 +30,7 @@ def build_cache (*links):
     pool = Pool(num_threads=num_threads)
 
     def work (unit):
-        logger.info('Working %r', unit)
+        logger.info('working %r', unit)
 
         if isinstance(unit, Thread):
             unit.download()
