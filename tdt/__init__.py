@@ -1,1 +1,1 @@
-__all__ = ['web', 'core', 'threading', 'solving', 'collections']
+__all__ = ['collections', 'core', 'solving', 'threading', 'web']

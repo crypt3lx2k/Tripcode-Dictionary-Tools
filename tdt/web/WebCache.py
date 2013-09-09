@@ -71,12 +71,14 @@ class WebCache (object):
         )
 
         while retry is not None:
-            self.sleep(retry)
+            if retry:
+                logger.debug('sleeping on %s for %s seconds', url, retry)
+                self.sleeper(retry)
 
             try:
                 return self.downloader(url, timeout=timeout)
             except Exception as e:
-                logger.debug('got exception %s on %s', url, e)
+                logger.debug('got on %s exception %s', url, e)
                 retrier.register_error(e)
 
             retry = retrier.seconds()
@@ -143,8 +145,8 @@ class WebCache (object):
         """
         Returns the values referred to by key in a thread-safe manner.
         """
-        logger.debug('getting %r from cache', key)
         with self.cache_lock:
+            logger.debug('getting %r from cache', key)
             return self.cache[key]
 
     def has_key (self, key):
@@ -191,12 +193,5 @@ class WebCache (object):
         Sets values in a thread-safe manner.
         """        
         with self.cache_lock:
+            logger.debug('storing %r in cache', key)
             self.cache[key] = args
-
-    def sleep (self, time):
-        """
-        Sleeps a set number of seconds.
-        """
-        if time:
-            logger.debug('sleeping for %s seconds', time)
-        self.sleeper(time)

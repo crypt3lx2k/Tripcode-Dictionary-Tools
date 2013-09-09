@@ -13,8 +13,9 @@ class Post (WebEntity):
                   board=None,  thread=None, post=None,
                   name=None,   time=None,
                   public=None, secure=None):
-        self.board, self.thread, self.post = \
-            board, thread, post
+        self.board, self.thread = board, thread
+        self.post = post
+
         self.name, self.time = name, time
 
         self.public = public

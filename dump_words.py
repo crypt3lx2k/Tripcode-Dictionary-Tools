@@ -8,6 +8,7 @@ from tdt.core      import WebEntity
 from tdt.threading import Pool
 from tdt.web       import all_boards
 from tdt.web       import Links
+from tdt.web.html  import sanitize
 
 cache_file = 'bin/cache.bin'
 
@@ -30,19 +31,7 @@ def find_words (*links):
     words = set()
     pool  = Pool(num_threads=num_threads)
 
-    nlbr_pattern = re.compile(r'(\<br\>)')
-    html_pattern = re.compile(r'(\<.*?\>)')
-    ref_pattern  = re.compile(r'(\>\>\d+)')
     word_pattern = re.compile(r'([^\s\#]+)')
-
-    def sanitize (contents):
-            contents = nlbr_pattern.sub('\n', contents)
-            contents = html_pattern.sub('', contents)
-            contents = Thread.html_parser.unescape(contents)
-            contents = contents.encode('utf8')
-            contents = ref_pattern.sub('', contents)
-
-            return contents
 
     def work (unit):
         logger.info('working %r', unit)
@@ -54,7 +43,7 @@ def find_words (*links):
             for post in thread['posts']:
                 for field in ('name', 'email', 'sub', 'com', 'filename'):
                     contents = post.get(field, '')
-                    contents = sanitize(contents)
+                    contents = sanitize(contents).encode('utf8')
 
                     words.update(word_pattern.findall(contents))
 

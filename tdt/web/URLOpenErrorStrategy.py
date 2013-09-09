@@ -20,9 +20,10 @@ class URLOpenErrorStrategy (RetryStrategy):
         """
         try:
             raise error
-        except (httplib.IncompleteRead,
-                httplib.BadStatusLine):
+        except httplib.BadStatusLine:
             self.exhaust()
+        except httplib.IncompleteRead:
+            pass
         except urllib2.HTTPError as e:
             if e.code == 408:
                 return

@@ -1,6 +1,5 @@
-import HTMLParser
-
-from ..web import Links
+from ..web      import Links
+from ..web.html import unescape
 
 from . import Public, Secure
 from . import WebEntity
@@ -12,7 +11,6 @@ class Thread (WebEntity):
     """
     Represents a thread.
     """
-    html_parser    = HTMLParser.HTMLParser()
     default_object = {'posts':[]}
 
     def __init__ (self, board, thread):
@@ -66,10 +64,8 @@ class Thread (WebEntity):
             pub_match = Public.pattern.match (post['trip'])
             sec_match = Secure.pattern.search(post['trip'])
 
-            # FIXME: should access to Thread.html_parser be synchronized? 
-            # FIXED: not if all we use is the undocumented unescape method.
-            name = Thread.html_parser.unescape(post.get('name', ''))
-            name = str(name.encode("utf8"))
+            name = unescape(post.get('name', ''))
+            name = name.encode('utf8')
 
             public = Public(pub_match.group(1)) if pub_match else None
             secure = Secure(sec_match.group(1)) if sec_match else None

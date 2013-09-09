@@ -9,6 +9,7 @@ from tdt.core      import WebEntity
 from tdt.threading import Pool
 from tdt.web       import all_boards
 from tdt.web       import Links
+from tdt.web.html  import sanitize
 
 cache_file = 'bin/cache.bin'
 
@@ -31,20 +32,7 @@ def find_ngrams (n, *links):
     ngrams = collections.Counter()
     pool   = Pool(num_threads=num_threads)
 
-    nlbr_pattern = re.compile(r'(\<br\>)')
-    html_pattern = re.compile(r'(\<.*?\>)')
-    ref_pattern  = re.compile(r'(\>\>\d+)')
-
     token_pattern = re.compile(r'([A-Za-z0-9]\S*[A-Za-z0-9]|[A-Za-z0-9])')
-
-    def sanitize (contents):
-            contents = nlbr_pattern.sub('\n', contents)
-            contents = html_pattern.sub('', contents)
-            contents = Thread.html_parser.unescape(contents)
-            contents = contents.encode('utf8')
-            contents = ref_pattern.sub('', contents)
-
-            return contents
 
     def generate_ngrams (tokens):
         return zip(*[tokens[i:] for i in range(n)])
@@ -58,7 +46,7 @@ def find_ngrams (n, *links):
 
             for post in thread['posts']:
                 contents = post.get('com', '')
-                contents = sanitize(contents)
+                contents = sanitize(contents).encode('utf8')
 
                 tokens = token_pattern.findall(contents)
                 tokens = [token.lower() for token in tokens]
@@ -91,7 +79,7 @@ if __name__ == '__main__':
     import sys
 
     parser = argparse.ArgumentParser (
-        description='Finds every word that\'s a potential tripcode.',
+        description='Collects ngrams where the tokens are words.',
         epilog='if no links are given all of 4chan is scraped'
     )
 

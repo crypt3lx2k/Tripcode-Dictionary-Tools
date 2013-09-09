@@ -82,7 +82,9 @@ if __name__ == '__main__':
     parser.add_argument (
         '--cache-file',
         metavar='file', type=str, default=cache_file,
-        help='which file to use as cache, defaults to {}'.format(cache_file)
+        help='which file to use as cache, defaults to {}'.format (
+            cache_file
+        )
     )
 
     parser.add_argument (
