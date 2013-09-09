@@ -25,7 +25,8 @@ class Thread (WebEntity):
         Returns a string representation fit for eval.
         """
         return (
-            '{self.__class__.__name__}({self.board!r}, {self.thread!r})'.format (
+            '{self.__class__.__name__}({})'.format (
+                ', '.join(map(repr, (self.board, self.thread))),
                 self=self
             )
         )

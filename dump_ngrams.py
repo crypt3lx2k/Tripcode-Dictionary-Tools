@@ -1,25 +1,15 @@
 #! /usr/bin/env python
 
 import collections
-import logging
 
 from tdt.core      import classify
 from tdt.core      import Thread
-from tdt.core      import WebEntity
 from tdt.threading import Pool
 from tdt.web       import all_boards
-from tdt.web       import Links
 from tdt.web.html  import sanitize
 
-cache_file = 'bin/cache.bin'
-
-num_threads = 32
-
-logger = logging.getLogger('')
-console_handler = logging.StreamHandler()
-
-logger.setLevel(logging.INFO)
-logger.addHandler(console_handler)
+from common import logger
+from common import parameters
 
 def find_ngrams (n, *links):
     """
@@ -30,7 +20,7 @@ def find_ngrams (n, *links):
     import re
 
     ngrams = collections.Counter()
-    pool   = Pool(num_threads=num_threads)
+    pool   = Pool(num_threads=parameters.num_threads)
 
     token_pattern = re.compile(r'([A-Za-z0-9]\S*[A-Za-z0-9]|[A-Za-z0-9])')
 
@@ -76,9 +66,10 @@ def find_ngrams (n, *links):
 
 if __name__ == '__main__':
     import argparse
-    import sys
 
-    parser = argparse.ArgumentParser (
+    from common import OfflineParser
+
+    parser = OfflineParser (
         description='Collects ngrams where the tokens are words.',
         epilog='if no links are given all of 4chan is scraped'
     )
@@ -100,83 +91,15 @@ if __name__ == '__main__':
         help='boards/pages/threads, may either be full URLs or names like /g/'
     )
 
-    parser.add_argument (
-        '--quiet',
-        action='store_true',
-        help='don\'t print progress to logfile'
-    )
-
-    parser.add_argument (
-        '--debug',
-        action='store_true',
-        help='print debug information to logfile'
-    )
-
-    parser.add_argument (
-        '--logfile',
-        metavar='file', type=argparse.FileType('w'), default=sys.stderr,
-        help='where to log progress/errors, defaults to stderr'
-    )
-
-    parser.add_argument (
-        '--cache-file',
-        metavar='file', type=str, default=cache_file,
-        help='which file to use as cache, defaults to {}'.format(cache_file)
-    )
-
-    parser.add_argument (
-        '--https',
-        action='store_true',
-        help='use HTTPS instead of HTTP'
-    )
-
-    parser.add_argument (
-        '--threads',
-        metavar='n', type=int, default=num_threads,
-        help='how many threads to use, defaults to {}'.format(num_threads)
-    )
-
-    parser.add_argument (
-        '--offline',
-        action='store_true',
-        help='run in offline mode, only uses the web cache'
-    )
-
     args = parser.parse_args()
 
-    if args.quiet and args.debug:
-        print >> sys.stderr, 'both --quiet and --debug set'
+    if parser.sanity_check(args):
         exit(1)
 
-    if args.quiet:
-        logger.setLevel(logging.WARNING)
-
-    if args.debug:
-        logger.setLevel(logging.DEBUG)
-
-    if args.logfile is not sys.stderr:
-        logger.removeHandler(console_handler)
-        logger.addHandler (
-            logging.StreamHandler(args.logfile)
-        )
-
-    cache_file = args.cache_file
-
-    if args.https:
-        Links.scheme = 'https'
-
-    num_threads = args.threads
-
-    if args.offline:
-        WebEntity.webcache.set_offline_mode()
-
-    WebEntity.webcache.load(cache_file)
-
+    parser.pre_process(args)
     ngrams = find_ngrams(args.n, *args.link)
     for ngram in sorted(ngrams, key=lambda s : ngrams[s], reverse=True):
         print >> args.outfile, '{} {}'.format (
             ' '.join(ngram), ngrams[ngram]
         )
-
-    if not args.offline:
-        WebEntity.webcache.dump(cache_file)
+    parser.post_process(args)

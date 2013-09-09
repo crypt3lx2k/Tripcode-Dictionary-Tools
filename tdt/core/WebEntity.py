@@ -38,13 +38,15 @@ class WebEntity (object):
 
     def download (self):
         """
-        Returns the downloaded contents of the corresponding API URL as a string.
+        Returns the downloaded contents of the corresponding API URL as a
+        string.
         """
         return self.webcache.download(self.apiurl, timeout=self.timeout)
 
     def decode (self, s):
         """
-        Decodes and returns the JSON object in s or the default value if it fails.
+        Decodes and returns the JSON object in s or the default value if it
+        fails.
         """
         try:
             return json.loads(s)

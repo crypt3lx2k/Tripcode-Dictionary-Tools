@@ -42,8 +42,8 @@ class WebCache (object):
         If the cache_file parameter is not given the cache is initialized to be
         empty.
 
-        The sleeper parameter must be a function that takes the number of seconds
-        to sleep (as a floating point number).
+        The sleeper parameter must be a function that takes the number of
+        seconds to sleep (as a floating point number).
         If the sleeper parameter is not given it is initialized as time.sleep.
         """
         if cache_file is None:
@@ -59,8 +59,8 @@ class WebCache (object):
 
     def download (self, url, timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
         """
-        Downloads the contents from the URL, if something goes wrong it registers
-        the exception with the retrier and asks for a sleep time.
+        Downloads the contents from the URL, if something goes wrong it
+        registers the exception with the retrier and asks for a sleep time.
         """
         retry = 0.0
 

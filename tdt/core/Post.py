@@ -78,8 +78,8 @@ class Post (WebEntity):
 
     def process (self):
         """
-        Does nothing, returns an iterable for uniformity with the other WebEntity
-        derivatives.
+        Does nothing, returns an iterable for uniformity with the other
+        WebEntity derivatives.
         """
         return tuple()
 

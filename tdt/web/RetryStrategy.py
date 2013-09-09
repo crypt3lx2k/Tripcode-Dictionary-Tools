@@ -6,8 +6,8 @@ class RetryStrategy (object):
     """
     def exhaust (self):
         """
-        Sets the retry strategy in such a state that it will always return a value
-        that indicates that no further sleep attempts should be made.
+        Sets the retry strategy in such a state that it will always return a
+        value that indicates that no further sleep attempts should be made.
         """
         raise NotImplementedError (
             'RetryStrategy derivatives must implement this!'

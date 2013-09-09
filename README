@@ -90,17 +90,17 @@ To aid this practice,
 
 build_cache.py:
 This program just builds the cache and does nothing else, you can afterwards
-invoke all of the above programs with --offline. It's a good idea to run these
-programs with just 1 thread when they are in the offline mode, as multiple
-threads in Python slow things down when there are no major blocking system calls
-like downloading involved.
+invoke all of the above programs with --offline. Note that when running a
+program in offline mode it will set the number of threads to 1, as multiple
+threads in Python only tend to slow things down when major blocking I/O (like
+downloading) isn't involved.
 
 So for instance if you want to dump all the hashes on /g/, also dump the words
 and a couple of ngrams you can do this.
 $ ./build_cache /g/
-$ ./dump_hashes --offline --threads=1 tripcodes.txt /g/
-$ ./dump_words --offline --threads=1 words.txt /g/
-$ ./dump_ngrams --offline --threads=1 bigrams.txt 2 /g/
+$ ./dump_hashes --offline tripcodes.txt /g/
+$ ./dump_words --offline words.txt /g/
+$ ./dump_ngrams --offline bigrams.txt 2 /g/
 ...
 
 Note that all of the above programs also build the cache, so if you just write
@@ -137,10 +137,13 @@ I do not host that list so it might go offline whenever and without notice.
 
 If you want to start by using that list you can use util/makesql in the
 following manner, we start off by downloading the list
-$ wget 'http://www.pageoftext.com/PH_plain&nm_page=secure_tripcode_dictionary' -O tripcodes.txt
+$ wget 'http://www.pageoftext.com/PH_plain&nm_page=secure_tripcode_dictionary' \
+-O tripcodes.txt
 then we generate a regular and a secure tripcode database based on it
-$ util/makesql --regex='\solution!\tripcode!!.{11}' tripcodes.txt tripcodes/public.db3
-$ util/makesql --regex='\solution!.{10}!!\secure' tripcodes.txt tripcodes/secure.db3
+$ util/makesql --regex='\solution!\tripcode!!.{11}' tripcodes.txt \
+tripcodes/public.db3
+$ util/makesql --regex='\solution!.{10}!!\secure' tripcodes.txt \
+tripcodes/secure.db3
 
 If you then do
 $ ./crack.py /sp/

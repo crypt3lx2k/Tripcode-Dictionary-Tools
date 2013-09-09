@@ -81,14 +81,14 @@ class Pool (object):
         """
         Properly destructs the pool by killing the threads.
 
-        After executing this function the pool is no longer operational.
+        After executing this method the pool is no longer operational.
         """
         if self.closed:
             return
 
-        # Guarantee that no unfinished jobs will be interleaved with the sentinel
-        # values, a worker thread might add jobs while its running and after we
-        # added the sentinels.
+        # Guarantee that no unfinished jobs will be interleaved with the
+        # sentinel values, a worker thread might add jobs while its running and
+        # after we added the sentinels.
         self.join()
 
         for _ in xrange(self.num_threads):
@@ -101,8 +101,8 @@ class Pool (object):
 
     def get_results (self):
         """
-        Attemps to retrieve all results, calling this before calling join() might
-        result in very weird behavior.
+        Attemps to retrieve all results, calling this before calling join()
+        might result in very weird behavior.
         """
         results = []
 

@@ -30,7 +30,8 @@ class Tripcode (object):
         """
         Returns a string representation fit for eval.
         """
-        return '{self.__class__.__name__}({self.cipher!r}, {self.key!r})'.format (
+        return '{self.__class__.__name__}({})'.format (
+            ', '.join(map(repr, (self.cipher, self.key))),
             self=self
         )
 
@@ -44,7 +45,8 @@ class Tripcode (object):
         """
         Attempts to solve tripcode using a solver.
 
-        If the tripcode is already solved (key is not None) then nothing is done.
+        If the tripcode is already solved (key is not None) then no action is
+        taken.
         """
         if self.key is None:
             self.key = solver.solve(self.cipher)

@@ -23,15 +23,15 @@ class UniformRetryStrategy (URLOpenErrorStrategy):
     @classmethod
     def from_average (cls, times, average, span):
         """
-        Initializes an instance from number of times to try, average sleep time and
-        span from the average sleep time (in seconds).
+        Initializes an instance from number of times to try, average sleep time
+        and span from the average sleep time (in seconds).
         """
         return cls(times, average-span, average+span)
 
     def exhaust (self):
         """
-        Sets the retry strategy in such a state that it will always return a value
-        that indicates that no further sleep attempts should be made.
+        Sets the retry strategy in such a state that it will always return a
+        value that indicates that no further sleep attempts should be made.
         """
         self.counter = self.times
 
