@@ -156,6 +156,12 @@ class WebCache (object):
         logger.debug('looking for %r in cache', key)
         return key in self.cache
 
+    def keys (self):
+        """
+        Makes a copy of the list of keys and returns it.
+        """
+        return self.cache.keys()
+
     def load (self, infile):
         """
         Loads internal cache from infile.
@@ -175,6 +181,12 @@ class WebCache (object):
         Takes an url and returns a key for use in the cache.
         """
         return urlparse.urlparse(url).path
+
+    def remove_key (self, key):
+        """
+        Removes an entry from the cache, not thread-safe.
+        """
+        del self.cache[key]
 
     def set_offline_mode (self):
         """

@@ -4,7 +4,7 @@ class Solver (object):
     """
     Base class for solvers.
     """
-    def solve (self, *args):
+    def solve (self, tripcode, *args):
         """
         Every Solver derivative must implement this method.
 

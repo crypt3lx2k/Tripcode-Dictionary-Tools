@@ -40,7 +40,7 @@ if __name__ == '__main__':
     from common import CommonParser
 
     parser = CommonParser (
-        description='Finds every word that\'s a potential tripcode.',
+        description='Builds the web cache.',
         epilog='if no links are given all of 4chan is scraped'
     )
 

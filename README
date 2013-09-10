@@ -18,7 +18,7 @@ several programs that are designed to make the job easier for you.
 Remember that you can invoke all of these programs with either -h or --help to
 see a full list of what they offer individually.
 
-Primarily 5 programs are provided, all of these programs accept input in the
+Primarily 6 programs are provided, all of these programs accept input in the
 form of 4chan links.
 
 A 'link' can either be a full thread URL like
@@ -106,6 +106,17 @@ $ ./dump_ngrams --offline bigrams.txt 2 /g/
 Note that all of the above programs also build the cache, so if you just write
 $ ./dump_hashes tripcodes.txt /g/
 you will also have a cached version on /g/ on your machine.
+
+prune_cache.py:
+This program prunes 404'ed entries from the cache, if you run this sporadically
+you'll avoid the cache file growing too big, if you want to build an archive or
+something like that you obviously don't want to run this program as old threads
+are simply deleted.
+
+You can also run this program in offline mode, take care when using this as it
+uses the offline board thread lists to see what threads are unreachable, you
+could potentially prune a new thread if you have been working on it without
+touching the board thread list.
 
 The end user is also presented with 3 secondary programs,
 util/makesql:
