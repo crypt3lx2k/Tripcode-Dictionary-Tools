@@ -45,6 +45,7 @@ def prune_cache (*links):
 
     live = map(lambda alive : alive.apiurl  , live)
     live = map(WebEntity.webcache.url_to_key, live)
+    live = set(live)
 
     keys = WebEntity.webcache.keys()
     keys = filter (
@@ -76,4 +77,4 @@ if __name__ == '__main__':
 
     parser.pre_process(args)
     prune_cache(*args.link)
-    parser.post_process(args)
+    parser.post_process(args, force_cache_write=True)

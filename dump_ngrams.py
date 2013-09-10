@@ -77,7 +77,7 @@ if __name__ == '__main__':
     parser.add_argument (
         'outfile',
         type=argparse.FileType('w'),
-        help='file to write the words, will be overwritten'
+        help='file to write the ngrams, will be overwritten'
     )
 
     parser.add_argument (

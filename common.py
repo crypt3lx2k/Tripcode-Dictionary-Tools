@@ -137,11 +137,11 @@ class OfflineParser (CommonParser):
             )
         )
 
-    def post_process (self, parameters=parameters):
+    def post_process (self, parameters=parameters, force_cache_write=False):
         """
         Acts on tdt based on parameter list after program has been ran.
         """
-        if not parameters.offline:
+        if not parameters.offline or force_cache_write:
             WebEntity.webcache.dump(parameters.cache_file)
 
     def pre_process (self, parameters=parameters):
