@@ -45,7 +45,7 @@ class Pool (object):
                 try:
                     res = obj(*args, **kwargs)
 
-                    if res:
+                    if res is not None:
                         self.pool.res_queue.put(res)
                 except Exception as e:
                     logger.error('%s', e)
