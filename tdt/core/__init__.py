@@ -7,6 +7,7 @@ from Post      import Post
 from Thread    import Thread
 from Board     import Board
 from Page      import Page
+from Site      import Site
 
 from classify import classify
 
