@@ -20,17 +20,17 @@ boards = [
 ]
 
 all_boards = [
-      '3',   'a', 'adv', 'an',  'asp',
-      'b',   'c', 'cgl', 'ck',   'cm',
-     'co',   'd', 'diy',  'e',    'f',
-     'fa', 'fit',   'g', 'gd',  'gif',
-      'h',  'hc',  'hm', 'hr',    'i',
-     'ic', 'int',  'jp',  'k', 'lgbt',
-    'lit',   'm', 'mlp', 'mu',    'n',
-      'o', 'out',   'p', 'po',  'pol',
-      'q',   'r', 'r9k',  's',  's4s',
-    'sci', 'soc',  'sp',  't',   'tg',
-    'toy', 'trv',  'tv',  'u',    'v',
-     'vg',  'vp',  'vr',  'w',   'wg',
-    'wsg',   'x',   'y'
+      '3',   'a', 'adv',  'an',  'asp',
+      'b',   'c', 'cgl',  'ck',   'cm',
+     'co',   'd', 'diy',   'e',    'f',
+     'fa', 'fit',   'g',  'gd',  'gif',
+      'h',  'hc',  'hm',  'hr',    'i',
+     'ic', 'int',  'jp',   'k', 'lgbt',
+    'lit',   'm', 'mlp',  'mu',    'n',
+      'o', 'out',   'p',  'po',  'pol',
+      'r', 'r9k',   's', 's4s',  'sci',
+    'soc',  'sp',   't',  'tg',  'toy',
+    'trv',  'tv',   'u',   'v',   'vg',
+     'vp',  'vr',   'w',  'wg',  'wsg',
+      'x',   'y'
 ]
