@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 """
 This program reads a raw file and transforms it into an SQL
-database fit for use with dtc.solving.SQLSolver.
+database fit for use with tdt.solving.SQLSolver.
 
 The program optionally takes a format string in the form of
 a regex that is used with the Python 're' module.
