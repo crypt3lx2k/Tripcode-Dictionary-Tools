@@ -60,7 +60,7 @@ def pretty_print_list (names):
 
 if __name__ == '__main__':
     # get list of boards
-    contents = urllib2.urlopen('http://api.4chan.org/boards.json').read()
+    contents = urllib2.urlopen('http://a.4cdn.org/boards.json').read()
     boards   = json.loads(contents)['boards']
 
     all_boards = map (

@@ -9,7 +9,7 @@ class Links (object):
     """
     scheme = 'http'
     netloc = 'boards.4chan.org'
-    apiloc = 'api.4chan.org'
+    apiloc = 'a.4cdn.org'
 
     board_pattern  = re.compile(r'/(\w+)$')
     page_pattern   = re.compile(r'/(\w+)/(\d+)$')
