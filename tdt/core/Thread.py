@@ -37,7 +37,7 @@ class Thread (WebEntity):
         Returns an url to the corresponding API json page.
         """
         return Links.createAPIURL (
-            '/{self.board}/res/{self.thread}.json'.format(self=self)
+            '/{self.board}/thread/{self.thread}.json'.format(self=self)
         )
 
     @property
@@ -46,7 +46,7 @@ class Thread (WebEntity):
         Returns an url to the thread.
         """
         return Links.createURL (
-            '/{self.board}/res/{self.thread}'.format(self=self)
+            '/{self.board}/thread/{self.thread}'.format(self=self)
         )
 
     def process (self):

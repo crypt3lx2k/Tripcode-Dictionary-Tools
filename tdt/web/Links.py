@@ -13,7 +13,7 @@ class Links (object):
 
     board_pattern  = re.compile(r'/(\w+)$')
     page_pattern   = re.compile(r'/(\w+)/(\d+)$')
-    thread_pattern = re.compile(r'/(\w+)/res/(\d+)$')
+    thread_pattern = re.compile(r'/(\w+)/thread/(\d+)$')
 
     @classmethod
     def __makeURL (cls, path, api, fragment=''):

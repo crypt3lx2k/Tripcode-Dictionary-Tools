@@ -89,7 +89,7 @@ class Post (WebEntity):
         Returns an url to the post.
         """
         return Links.createURL (
-            '/{self.board}/res/{self.thread}'.format(self=self),
+            '/{self.board}/thread/{self.thread}'.format(self=self),
             'p{self.post}'.format(self=self)
         )
 

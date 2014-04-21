@@ -22,10 +22,10 @@ Primarily 6 programs are provided, all of these programs accept input in the
 form of 4chan links.
 
 A 'link' can either be a full thread URL like
-https://boards.4chan.org/g/res/36491091
-boards.4chan.org/g/res/36491091
+https://boards.4chan.org/g/thread/36491091
+boards.4chan.org/g/thread/36491091
 or something simpler like
-/g/res/36491091
+/g/thread/36491091
 
 For a board you can either write
 https://boards.4chan.org/g/
