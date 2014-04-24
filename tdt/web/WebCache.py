@@ -57,7 +57,7 @@ class WebCache (object):
         self.cache_lock = threading.Lock()
         self.set_online_mode()
 
-    def download (self, url, timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
+    def download (self, url, timeout=socket._GLOBAL_DEFAULT_TIMEOUT, bypass_cache=False):
         """
         Downloads the contents from the URL, if something goes wrong it
         registers the exception with the retrier and asks for a sleep time.
@@ -76,7 +76,7 @@ class WebCache (object):
                 self.sleeper(retry)
 
             try:
-                return self.downloader(url, timeout=timeout)
+                return self.downloader(url, timeout=timeout, bypass_cache=bypass_cache)
             except Exception as e:
                 logger.debug('got on %s exception %s', url, e)
                 retrier.register_error(e)
@@ -85,7 +85,7 @@ class WebCache (object):
 
         return ''
 
-    def download_offline (self, url, timeout=None):
+    def download_offline (self, url, timeout=None, bypass_cache=False):
         """
         Simulates downloading contents from URL while only looking it up in the
         cache.
@@ -93,20 +93,23 @@ class WebCache (object):
         contents = None
         key = self.url_to_key(url)
 
+        if bypass_cache:
+            raise ValueError ('Cache bypass doesn\'t make sense in offline mode.')
+
         if self.has_key(key):
             _, contents = self.get_values(key)
             return zlib.decompress(contents)
 
         raise urllib2.URLError(OSError('not in cache'))
 
-    def download_raw (self, url, timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
+    def download_online (self, url, timeout=socket._GLOBAL_DEFAULT_TIMEOUT, bypass_cache=False):
         """
         Downloads contents from the URL, using the internal cache if applicable.
         """
         contents = None
         key = self.url_to_key(url)
 
-        if self.has_key(key):
+        if not bypass_cache and self.has_key(key):
             lastmodified, contents = self.get_values(key)
 
             url = urllib2.Request(url)
@@ -126,7 +129,8 @@ class WebCache (object):
                 return zlib.decompress(contents)
             raise
 
-        self.set_values(key, lastmodified, zlib.compress(contents))
+        if not bypass_cache:
+            self.set_values(key, lastmodified, zlib.compress(contents))
 
         return contents
 
@@ -198,7 +202,7 @@ class WebCache (object):
         """
         Sets online mode for the webcache.
         """
-        self.downloader = self.download_raw
+        self.downloader = self.download_online
 
     def set_values (self, key, *args):
         """

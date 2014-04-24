@@ -36,12 +36,15 @@ class WebEntity (object):
         """
         raise NotImplementedError ('WebEntity derivatives must implement this!')
 
-    def download (self):
+    def download (self, bypass_cache=False):
         """
         Returns the downloaded contents of the corresponding API URL as a
         string.
         """
-        return self.webcache.download(self.apiurl, timeout=self.timeout)
+        return self.webcache.download (
+            self.apiurl,
+            timeout=self.timeout, bypass_cache=bypass_cache
+        )
 
     def decode (self, s):
         """
@@ -53,12 +56,12 @@ class WebEntity (object):
         except ValueError:
             return self.default_object
 
-    def download_and_decode (self):
+    def download_and_decode (self, bypass_cache=False):
         """
         Downloads the API URL contents, decodes them and returns the resulting
         object, or the default value if that fails.
         """
-        return self.decode(self.download())
+        return self.decode(self.download(bypass_cache=bypass_cache))
 
     def process (self):
         """

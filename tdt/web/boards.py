@@ -5,32 +5,32 @@
 __all__ = ['boards', 'all_boards']
 
 boards = [
-      '3',   'a', 'adv',   'an', 'asp',
-      'c', 'cgl',  'ck',   'cm',  'co',
-      'd', 'diy',   'e',    'f',  'fa',
-    'fit',   'g',  'gd',  'gif',   'h',
-     'hc',  'hm',  'hr',    'i',  'ic',
-    'int',  'jp',   'k', 'lgbt', 'lit',
-      'm', 'mlp',  'mu',    'n',   'o',
-    'out',   'p',  'po',  'pol',   'r',
-    'r9k',   's', 'sci',   'sp',   't',
-     'tg', 'toy', 'trv',   'tv',   'u',
-      'v',  'vg',  'vp',   'vr',   'w',
-     'wg', 'wsg',   'x',    'y'
-]
-
-all_boards = [
       '3',   'a', 'adv',  'an',  'asp',
-      'b',   'c', 'cgl',  'ck',   'cm',
+    'biz',   'c', 'cgl',  'ck',   'cm',
      'co',   'd', 'diy',   'e',    'f',
      'fa', 'fit',   'g',  'gd',  'gif',
       'h',  'hc',  'hm',  'hr',    'i',
      'ic', 'int',  'jp',   'k', 'lgbt',
     'lit',   'm', 'mlp',  'mu',    'n',
       'o', 'out',   'p',  'po',  'pol',
-      'r', 'r9k',   's', 's4s',  'sci',
-    'soc',  'sp',   't',  'tg',  'toy',
-    'trv',  'tv',   'u',   'v',   'vg',
-     'vp',  'vr',   'w',  'wg',  'wsg',
-      'x',   'y'
+      'r', 'r9k',   's', 'sci',   'sp',
+      't',  'tg', 'toy', 'trv',   'tv',
+      'u',   'v',  'vg',  'vp',   'vr',
+      'w',  'wg', 'wsg',   'x',    'y'
+]
+
+all_boards = [
+       '3',   'a', 'adv',  'an', 'asp',
+       'b', 'biz',   'c', 'cgl',  'ck',
+      'cm',  'co',   'd', 'diy',   'e',
+       'f',  'fa', 'fit',   'g',  'gd',
+     'gif',   'h',  'hc',  'hm',  'hr',
+       'i',  'ic', 'int',  'jp',   'k',
+    'lgbt', 'lit',   'm', 'mlp',  'mu',
+       'n',   'o', 'out',   'p',  'po',
+     'pol',   'r', 'r9k',   's', 's4s',
+     'sci', 'soc',  'sp',   't',  'tg',
+     'toy', 'trv',  'tv',   'u',   'v',
+      'vg',  'vp',  'vr',   'w',  'wg',
+     'wsg',   'x',   'y'
 ]

@@ -4,6 +4,7 @@ from ..web.html import unescape
 from . import Public, Secure
 from . import WebEntity
 from . import Post
+from . import Image
 
 __all__ = ['Thread']
 
@@ -57,19 +58,22 @@ class Thread (WebEntity):
         posts  = []
 
         for post in thread['posts']:
-            # ignore posts that don't have tripcodes
-            if not 'trip' in post:
-                continue
-
-            post['trip'] = str(post['trip'])
+            post['trip'] = str(post.get('trip', ''))
             pub_match = Public.pattern.match (post['trip'])
             sec_match = Secure.pattern.search(post['trip'])
+
+            public = Public(pub_match.group(1)) if pub_match else None
+            secure = Secure(sec_match.group(1)) if sec_match else None
 
             name = unescape(post.get('name', ''))
             name = name.encode('utf8')
 
-            public = Public(pub_match.group(1)) if pub_match else None
-            secure = Secure(sec_match.group(1)) if sec_match else None
+            if post.has_key('tim') and post.has_key('ext'):
+                post['image'] = Image (
+                    self.board,
+                    post['tim'], post['ext'].encode('utf8'),
+                    post['filename'].encode('utf8')
+                )
 
             posts.append (
                 Post (
@@ -79,8 +83,9 @@ class Thread (WebEntity):
                     thread = self.thread,
                     post   = post['no'],
                     public = public,
-                    secure = secure
-                )  
+                    secure = secure,
+                    image  = post.get('image')
+                )
             )
 
         return posts

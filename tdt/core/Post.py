@@ -12,7 +12,7 @@ class Post (WebEntity):
     def __init__ (self,
                   board=None,  thread=None, post=None,
                   name=None,   time=None,
-                  public=None, secure=None):
+                  public=None, secure=None, image=None):
         self.board, self.thread = board, thread
         self.post = post
 
@@ -20,6 +20,8 @@ class Post (WebEntity):
 
         self.public = public
         self.secure = secure
+
+        self.image = image
 
         if not self.name:
             self.name = 'Nameless'
@@ -48,7 +50,8 @@ class Post (WebEntity):
                 '{self.__class__.__name__}(name={self.name!r}, '
                 'time={self.time!r}, board={self.board!r}, '
                 'thread={self.thread!r}, post={self.post!r}, '
-                'public={self.public!r}, secure={self.secure!r})'
+                'public={self.public!r}, secure={self.secure!r}, '
+                'image={self.image!r})'
         )).format(self=self)
 
     def __str__ (self):
@@ -92,6 +95,13 @@ class Post (WebEntity):
             '/{self.board}/thread/{self.thread}'.format(self=self),
             'p{self.post}'.format(self=self)
         )
+
+    @property
+    def imageurl (self):
+        """
+        Returns an url to the image of this post.
+        """
+        return self.image.url
 
     def solved (self):
         """

@@ -27,7 +27,9 @@ def crack (*links):
 
     def work (unit):
         if isinstance(unit, Post):
-            return unit
+            if unit.public or unit.secure:
+                return unit
+            return
 
         logger.info('working %r', unit)
         for e in unit.process():
