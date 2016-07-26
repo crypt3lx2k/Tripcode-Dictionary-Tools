@@ -4,8 +4,8 @@ This file holds things that the various programs have in common.
 import argparse
 import logging
 
-from tdt.core import WebEntity
-from tdt.web  import Links
+from iwi.core import WebEntity
+from iwi.web  import Links
 
 from defaults import defaults
 
@@ -87,13 +87,13 @@ class CommonParser (argparse.ArgumentParser):
 
     def post_process (self, parameters=parameters):
         """
-        Acts on tdt based on parameter list after program has been ran.
+        Acts on iwi based on parameter list after program has been ran.
         """
         WebEntity.webcache.dump(parameters.cache_file)
 
     def pre_process (self, parameters=parameters):
         """
-        Acts on tdt based on parameter list to set up program conditions.
+        Acts on iwi based on parameter list to set up program conditions.
         """
         if parameters.debug:
             logger.setLevel(logging.DEBUG)
@@ -139,14 +139,14 @@ class OfflineParser (CommonParser):
 
     def post_process (self, parameters=parameters, force_cache_write=False):
         """
-        Acts on tdt based on parameter list after program has been ran.
+        Acts on iwi based on parameter list after program has been ran.
         """
         if not parameters.offline or force_cache_write:
             WebEntity.webcache.dump(parameters.cache_file)
 
     def pre_process (self, parameters=parameters):
         """
-        Acts on tdt based on parameter list to set up program conditions.
+        Acts on iwi based on parameter list to set up program conditions.
         """
         super(OfflineParser, self).pre_process(parameters=parameters)
 

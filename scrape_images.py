@@ -3,9 +3,9 @@
 import os
 import time
 
-from tdt.core      import classify
-from tdt.core      import Post
-from tdt.threading import Pool
+from iwi.core      import classify
+from iwi.core      import Post
+from iwi.threading import Pool
 
 from common import logger
 from common import parameters

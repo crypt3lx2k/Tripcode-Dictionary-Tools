@@ -1,9 +1,9 @@
 #! /usr/bin/env python
 
-from tdt.core      import classify
-from tdt.core      import Post
-from tdt.threading import Pool
-from tdt.web       import boards
+from iwi.core      import classify
+from iwi.core      import Post
+from iwi.threading import Pool
+from iwi.web       import boards
 
 from common import logger
 from common import parameters

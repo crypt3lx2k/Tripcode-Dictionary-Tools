@@ -2,11 +2,11 @@
 
 import collections
 
-from tdt.core      import classify
-from tdt.core      import Thread
-from tdt.threading import Pool
-from tdt.web       import all_boards
-from tdt.web.html  import sanitize
+from iwi.core      import classify
+from iwi.core      import Thread
+from iwi.threading import Pool
+from iwi.web       import all_boards
+from iwi.web.html  import sanitize
 
 from common import logger
 from common import parameters

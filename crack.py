@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 
-from tdt.collections import SortedSet
-from tdt.core        import classify
-from tdt.core        import Post
-from tdt.solving     import SQLSolver
-from tdt.threading   import Pool
+from iwi.collections import SortedSet
+from iwi.core        import classify
+from iwi.core        import Post
+from iwi.solving     import SQLSolver
+from iwi.threading   import Pool
 
 from common import logger
 from common import parameters
