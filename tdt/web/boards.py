@@ -5,32 +5,35 @@
 __all__ = ['boards', 'all_boards']
 
 boards = [
-      '3',   'a', 'adv',  'an',  'asp',
-    'biz',   'c', 'cgl',  'ck',   'cm',
-     'co',   'd', 'diy',   'e',    'f',
-     'fa', 'fit',   'g',  'gd',  'gif',
-      'h',  'hc',  'hm',  'hr',    'i',
-     'ic', 'int',  'jp',   'k', 'lgbt',
-    'lit',   'm', 'mlp',  'mu',    'n',
-      'o', 'out',   'p',  'po',  'pol',
-      'r', 'r9k',   's', 'sci',   'sp',
-      't',  'tg', 'toy', 'trv',   'tv',
-      'u',   'v',  'vg',  'vp',   'vr',
-      'w',  'wg', 'wsg',   'x',    'y'
+      '3',    'a',  'aco',   'adv',  'an',
+    'asp',  'biz',    'c',   'cgl',  'ck',
+     'cm',   'co',    'd',   'diy',   'e',
+      'f',   'fa',  'fit',     'g',  'gd',
+    'gif',    'h',   'hc',   'his',  'hm',
+     'hr',    'i',   'ic',   'int',  'jp',
+      'k', 'lgbt',  'lit',     'm', 'mlp',
+     'mu',    'n', 'news',     'o', 'out',
+      'p',   'po',  'pol',    'qa', 'qst',
+      'r',  'r9k',    's',   'sci',  'sp',
+      't',   'tg',  'toy', 'trash', 'trv',
+     'tv',    'u',    'v',    'vg',  'vp',
+     'vr',    'w',   'wg',   'wsg', 'wsr',
+      'x',    'y'
 ]
 
 all_boards = [
-       '3',   'a', 'adv',  'an', 'asp',
-       'b', 'biz',   'c', 'cgl',  'ck',
-      'cm',  'co',   'd', 'diy',   'e',
-       'f',  'fa', 'fit',   'g',  'gd',
-     'gif',   'h',  'hc',  'hm',  'hr',
-       'i',  'ic', 'int',  'jp',   'k',
-    'lgbt', 'lit',   'm', 'mlp',  'mu',
-       'n',   'o', 'out',   'p',  'po',
-     'pol',   'r', 'r9k',   's', 's4s',
-     'sci', 'soc',  'sp',   't',  'tg',
-     'toy', 'trv',  'tv',   'u',   'v',
-      'vg',  'vp',  'vr',   'w',  'wg',
-     'wsg',   'x',   'y'
+      '3',     'a',  'aco',  'adv',  'an',
+    'asp',     'b',  'biz',    'c', 'cgl',
+     'ck',    'cm',   'co',    'd', 'diy',
+      'e',     'f',   'fa',  'fit',   'g',
+     'gd',   'gif',    'h',   'hc', 'his',
+     'hm',    'hr',    'i',   'ic', 'int',
+     'jp',     'k', 'lgbt',  'lit',   'm',
+    'mlp',    'mu',    'n', 'news',   'o',
+    'out',     'p',   'po',  'pol',  'qa',
+    'qst',     'r',  'r9k',    's', 's4s',
+    'sci',   'soc',   'sp',    't',  'tg',
+    'toy', 'trash',  'trv',   'tv',   'u',
+      'v',    'vg',   'vp',   'vr',   'w',
+     'wg',   'wsg',  'wsr',    'x',   'y'
 ]
