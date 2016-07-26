@@ -32,6 +32,9 @@ class WebCache (object):
     retry_lower = 5
     retry_upper = 15
 
+    # default user string
+    user_string = "Mozilla/5.0"
+
     def __init__ (self, cache_file=None, sleeper=None):
         """
         Initializes an instance from an optional cache_file, an optional
@@ -108,15 +111,16 @@ class WebCache (object):
         """
         contents = None
         key = self.url_to_key(url)
+        request = urllib2.Request(url)
+        request.add_header('User-agent', self.user_string)
 
         if not bypass_cache and self.has_key(key):
             lastmodified, contents = self.get_values(key)
 
-            url = urllib2.Request(url)
-            url.add_header('if-modified-since', lastmodified)
+            request.add_header('if-modified-since', lastmodified)
 
         try:
-            connection   = urllib2.urlopen(url, timeout=timeout)
+            connection   = urllib2.urlopen(request, timeout=timeout)
             lastmodified = connection.headers.get('last-modified')
             contents     = connection.read()
             connection.close()
